@@ -7,6 +7,9 @@ class Treasure(models.Model):
     latitude = models.FloatField(null=False)
     longitude = models.FloatField(null=False)
     
+    def __str__(self):
+        return self.name
+    
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
