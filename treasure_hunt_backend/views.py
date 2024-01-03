@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Treasure, Profile
-from .serializers import TreasureSerializer, ProfileSerializer
+from django.contrib.auth.models import User
+from .serializers import TreasureSerializer, ProfileSerializer, UserSerializer
 from rest_framework import viewsets
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -28,8 +29,8 @@ class DeleteUserView(DestroyAPIView):
     serializer_class = ProfileSerializer
 
 class CreateUserView(CreateAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class UpdateUserView(UpdateAPIView):
     queryset = Profile.objects.all()
