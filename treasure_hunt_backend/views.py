@@ -17,6 +17,9 @@ class TreasureViewSets(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+    # def post(self, request, *args, **kwargs):
+    #     return request.data
 
 
 class ProfileViewSets(viewsets.ModelViewSet):
