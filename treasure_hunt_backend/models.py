@@ -16,4 +16,4 @@ class Profile(models.Model):
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.password
