@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import TreasureViewSets, ProfileViewSets
+from .views import TreasureViewSets, ProfileViewSets, DeleteUserView, CreateUserView, UpdateUserView
 
 router = routers.DefaultRouter()
 router.register(r'treasure', TreasureViewSets)
@@ -26,6 +26,9 @@ router.register(r'users', ProfileViewSets)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('users/<int:pk>/', DeleteUserView.as_view(), name='delete-user'),
+    path('users', CreateUserView.as_view(), name="create-user"),
+    path('users/<int:pk>/', UpdateUserView.as_view(), name="update-user")
 ]
 
 urlpatterns += router.urls
