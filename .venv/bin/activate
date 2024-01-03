@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/elr143/northcoders/treasure-hunt/treasure-hunt-backend/.venv"
+VIRTUAL_ENV="/home/matthew/northcoders/treasure-hunt/treasure-hunt-backend/.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
