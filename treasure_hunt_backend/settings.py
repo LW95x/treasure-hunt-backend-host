@@ -27,9 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY') or os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower()== "true"
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+DEBUG = os.environ.get("DEBUG","False").lower()== "true" 
+#os.environ.get("ALLOWED_HOSTS").split(" ")
+[config("ALLOWED_HOSTS")]
+ALLOWED_HOSTS =os.environ.get("ALLOWED_HOSTS").split(" ")
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -97,10 +98,11 @@ DATABASES = {
         'HOST': "localhost",
     }
 }
-
-if config('DJANGO_ENV') == 'production':
-    db_url= os.environ.get("DATABASE_URL")
-    DATABASES["default"]= dj_database_url.parse(db_url)
+db_url= os.environ.get("DATABASE_URL")
+DATABASES["default"]= dj_database_url.parse(db_url)
+#if config('DJANGO_ENV') == 'production':
+#    db_url= os.environ.get("DATABASE_URL")
+ #   DATABASES["default"]= dj_database_url.parse(db_url)
     
 
 
