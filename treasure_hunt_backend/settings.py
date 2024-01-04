@@ -9,28 +9,30 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-import dj_database_url
-import os
-from pathlib import Path
 
-from decouple import config
+from dotenv import load_dotenv
+load_dotenv()
+from pathlib import Path
+import os
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_path = BASE_DIR / '.env'
+load_dotenv(dotenv_path=dotenv_path)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY') or os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower()== "true" 
-#os.environ.get("ALLOWED_HOSTS").split(" ")
-[config("ALLOWED_HOSTS")]
-ALLOWED_HOSTS =os.environ.get("ALLOWED_HOSTS").split(" ")
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -92,18 +94,13 @@ WSGI_APPLICATION = 'treasure_hunt_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': "localhost",
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
     }
 }
-db_url= os.environ.get("DATABASE_URL")
-DATABASES["default"]= dj_database_url.parse(db_url)
-#if config('DJANGO_ENV') == 'production':
-#    db_url= os.environ.get("DATABASE_URL")
- #   DATABASES["default"]= dj_database_url.parse(db_url)
-    
+
+DATABASES["default"] = dj_database_url.parse("postgres://treasure_hunt_user:jPoz3dBrbYBqeDJ0sEFe47qACxzwBJRQ@dpg-cmbjdu21hbls73bn2pvg-a.frankfurt-postgres.render.com/treasure_hunt")
 
 
 # Password validation
