@@ -93,11 +93,11 @@ DATABASES = {
         'NAME': config('DB_NAME'),
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': config("DATABASE_URL"),
+        'HOST': "localhost",
     }
 }
 
-if config('DJANGO_ENV') == 'development':
+if config('DJANGO_ENV') == 'production':
     DATABASES['default']['TEST'] = {
         'NAME': config('TEST_NAME')
     }
