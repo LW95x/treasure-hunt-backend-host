@@ -20,9 +20,9 @@ from rest_framework import routers
 from .views import TreasureViewSets, ProfileViewSets, UserViewSets
 
 router = routers.DefaultRouter()
-router.register(r'treasures', TreasureViewSets)
-router.register(r'profiles', ProfileViewSets)
 router.register(r'users', UserViewSets)
+router.register(r'profiles', ProfileViewSets)
+router.register(r'treasures', TreasureViewSets)
 
 urlpatterns = [
     path('', include(router.urls)),

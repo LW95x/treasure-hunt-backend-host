@@ -9,14 +9,14 @@ from rest_framework.generics import DestroyAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import UpdateAPIView
 
-class TreasureViewSets(viewsets.ModelViewSet):
-    queryset = Treasure.objects.all()
-    serializer_class = TreasureSerializer
+class UserViewSets(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class ProfileViewSets(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-class UserViewSets(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class TreasureViewSets(viewsets.ModelViewSet):
+    queryset = Treasure.objects.all()
+    serializer_class = TreasureSerializer
