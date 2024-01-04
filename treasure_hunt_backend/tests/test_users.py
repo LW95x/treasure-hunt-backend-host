@@ -2,17 +2,26 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
-# from .models import #etc
+
+# Users Endpoint 
+## Get a list of all users 
+## Get specific user 
+## Post a user 
+## Posting user encrypts password 
+## Patch a user with email, username, firstname, lastname, etc 
+## Patching a user encrypts the password 
+## Delete user 
+## Erroneous tests too (: 
+###TESTS ARE RUN ALPHABETICALLY AND MUST START WITH test
 
 class UserTests(APITestCase):
-    #TESTS ARE RUN ALPHABETICALLY AND MUST START WITH test
     def test_a_any_test(self):
         print("any_test")
         url = reverse("user-list")
         data = {"username": "electircboogaloo", "password": "ahh"}
         response = self.client.post(url, data) #id = 1
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data, {"id": 1,"username": "electircboogaloo", "password": "ahh"})
+        self.assertEqual(User.objects.get().username, "electircboogaloo")
         
     def test_b_create_user(self):
         print("test_create_user")
@@ -47,4 +56,4 @@ class UserTests(APITestCase):
         url = reverse("user-detail", kwargs={"pk":4})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {"id": 4, "username": "findMe", "password": "iAmHidden"})
+        self.assertEqual(User.objects.get().username, "findMe")

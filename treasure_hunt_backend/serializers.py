@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer): 
     class Meta: 
         model = User
-        fields = ["id", "username", "password"]
+        fields = "__all__"
         
     def create(self, validated_data):
         user = User(
@@ -14,6 +14,12 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+    def update(self, instance, validated_data):
+        if validated_data.get("password"):
+            instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
         
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
