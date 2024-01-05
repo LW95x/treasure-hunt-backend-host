@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from .views import TreasureViewSets, ProfileViewSets, UserViewSets
+from rest_framework.schemas import get_schema_view
+
+schema_view = get_schema_view(title="Treasure Hunt API")
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSets)
@@ -26,7 +29,10 @@ router.register(r'treasures', TreasureViewSets)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('schema/', schema_view)
 ]
 
 urlpatterns += router.urls
+
+profile_images/Pikachu.jpg
