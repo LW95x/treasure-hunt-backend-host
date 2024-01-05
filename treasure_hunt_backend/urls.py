@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import TreasureViewSets, ProfileViewSets, UserViewSets
+from .views import TreasureViewSets, ProfileViewSets, UserViewSets, login
+from drf_spectacular.views import SpectacularAPIView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSets)
@@ -25,6 +26,8 @@ router.register(r'profiles', ProfileViewSets)
 router.register(r'treasures', TreasureViewSets)
 
 urlpatterns = [
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('login', login, name='login'),
     path('', include(router.urls)),
     path('admin/', admin.site.urls)
 ]
