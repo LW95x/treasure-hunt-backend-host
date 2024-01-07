@@ -17,19 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import TreasureViewSets, ProfileViewSets, UserViewSets, login
-from drf_spectacular.views import SpectacularAPIView
+from .views import TreasureViewSets, ProfileViewSets, UserViewSets, LoginView
+from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSets)
-router.register(r'profiles', ProfileViewSets)
-router.register(r'treasures', TreasureViewSets)
+router.register('users', UserViewSets)
+router.register('profiles', ProfileViewSets)
+router.register('treasures', TreasureViewSets)
 
 urlpatterns = [
-    path('schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('login', login, name='login'),
+    path('download-schema', SpectacularAPIView.as_view(), name='download-schema'),
+    path('', SpectacularSwaggerView.as_view(url_name='download-schema'), name='schema'),
+    path('login', LoginView.as_view(), name='login'),
     path('', include(router.urls)),
-    path('admin/', admin.site.urls)
+    path('admin', admin.site.urls)
 ]
-
-urlpatterns += router.urls

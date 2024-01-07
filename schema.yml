@@ -1,9 +1,31 @@
 openapi: 3.0.3
 info:
-  title: Your Project API
+  title: 
   version: 1.0.0
-  description: Your project description
+  description: 
 paths:
+  /login:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+          description: ''
   /profiles/:
     get:
       operationId: profiles_list
@@ -411,17 +433,27 @@ paths:
           description: No response body
 components:
   schemas:
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - username
     PatchedProfile:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-        user:
-          type: integer
         avatar:
           type: string
           format: uri
+        user_id:
+          type: integer
         treasures:
           type: array
           items:
@@ -505,18 +537,18 @@ components:
         id:
           type: integer
           readOnly: true
-        user:
-          type: integer
         avatar:
           type: string
           format: uri
+        user_id:
+          type: integer
         treasures:
           type: array
           items:
             type: integer
       required:
       - id
-      - user
+      - user_id
     Treasure:
       type: object
       properties:

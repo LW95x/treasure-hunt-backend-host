@@ -15,18 +15,28 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
-    # def update(self, instance, validated_data):
-    #     if validated_data.get("password"):
-    #         instance.set_password(validated_data['password'])
-    #     instance.save()
-    #     return instance
+    def update(self, instance, validated_data):
+
+        if 'password' in validated_data:
+            password = validated_data.pop('password')
+            instance.set_password(password)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
         
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'user', 'avatar', 'treasures']
+        fields = "__all__"
         
 class TreasureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treasure
-        fields = ['id', 'name', 'latitude', 'longitude']
+        fields = "__all__"
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()

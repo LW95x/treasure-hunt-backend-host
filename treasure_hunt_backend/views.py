@@ -1,37 +1,28 @@
-from django.shortcuts import render
 from .models import Treasure, Profile
 from django.contrib.auth.models import User
-from .serializers import TreasureSerializer, ProfileSerializer, UserSerializer
-from rest_framework import viewsets
+from .serializers import TreasureSerializer, ProfileSerializer, UserSerializer, LoginSerializer
+from rest_framework import viewsets, status
 from django.contrib.auth import authenticate
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-@api_view(['POST'])
-def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    user = authenticate(username=username, password=password)
+class LoginView(APIView):
+    serializer_class = LoginSerializer
 
-    if user:
-        return JsonResponse({'success': True})
-    else:
-        return JsonResponse({'success': False}, status=401)
-
-# from .. import schema
-# from django.http import HttpResponse
-
-
-# def read_file(schema):
-#     with open(schema, 'r') as file:
-#         return file.read()
-
-# def file_view(req):
-#     yaml_file = read_file(schema)
-#     return HttpResponse(yaml_file, content_type='text/plain')
-
-
-
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            user = authenticate(username=username, password=password)
+            
+            if user:
+                return Response({'success': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({'success': False, 'error': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class UserViewSets(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -39,6 +30,12 @@ class UserViewSets(viewsets.ModelViewSet):
 class ProfileViewSets(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+    def create(self, request, *args, **kwargs):
+        return Response({"detail": "Creating new profiles isn't allowed, create a user instead."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+    def destroy(self, request, *args, **kwargs):
+        return Response({"detail": "Deleting existing profiles isn't allowed, delete the user instead."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 class TreasureViewSets(viewsets.ModelViewSet):
     queryset = Treasure.objects.all()

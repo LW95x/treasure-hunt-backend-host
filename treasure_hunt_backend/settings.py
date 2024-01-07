@@ -48,8 +48,8 @@ REST_FRAMEWORK = {
 } # makes page display as JSON
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
+    'TITLE': 'Treasure Hunt API',
+    'DESCRIPTION': 'An API designed with Python, utilising Django and the REST Framework, providing endpoints to the Treasure Hunt application\'s frontend.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
