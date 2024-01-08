@@ -35,7 +35,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class TreasureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Treasure
-        fields = "__all__"
+        fields = ["id", "name", "lat", "lng"]
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
