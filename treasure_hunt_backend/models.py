@@ -18,8 +18,8 @@ def create_user_profile(sender, instance, created, **kwargs):
             
 class Treasure(models.Model):
     name = models.CharField(max_length=255)
-    lat = models.FloatField(null=False)
-    lng = models.FloatField(null=False)
+    latitude = models.FloatField(null=False)
+    longitude = models.FloatField(null=False)
     
     def __str__(self):
         return self.name
