@@ -18,7 +18,7 @@ class Profile(models.Model):
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user_id.username
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
