@@ -40,3 +40,11 @@ class ProfileViewSets(viewsets.ModelViewSet):
 class TreasureViewSets(viewsets.ModelViewSet):
     queryset = Treasure.objects.all()
     serializer_class = TreasureSerializer
+
+    def update(self, request, *args, **kwargs):
+        treasure = self.get_object()
+        if 'increment_collected_by' in request.data:
+            treasure.collected_by += 1
+            treasure.save()
+
+        return super().update(request, *args, **kwargs)

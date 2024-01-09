@@ -7,6 +7,7 @@ class Treasure(models.Model):
     name = models.CharField(max_length=255)
     lat = models.FloatField(null=False)
     lng = models.FloatField(null=False)
+    collected_by = models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
@@ -27,4 +28,3 @@ class Profile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user_id=instance)
-            
