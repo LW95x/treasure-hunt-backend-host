@@ -17,6 +17,10 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
 
+    @property
+    def treasure_count(self):
+         return self.treasures.count()
+
     def __str__(self):
         return self.user_id.username
 

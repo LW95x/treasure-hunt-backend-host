@@ -28,6 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
         
 class ProfileSerializer(serializers.ModelSerializer):
+    treasure_count = serializers.ReadOnlyField()
+
     class Meta:
         model = Profile
         fields = "__all__"
