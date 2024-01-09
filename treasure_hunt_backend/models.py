@@ -14,11 +14,10 @@ class Treasure(models.Model):
     
 class Profile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
 
     @property
-    def treasure_count(self):
+    def treasure_count(self) -> int:
          return self.treasures.count()
 
     def __str__(self):
