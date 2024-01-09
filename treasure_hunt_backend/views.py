@@ -31,8 +31,8 @@ class ProfileViewSets(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
-    def create(self, request, *args, **kwargs):
-        return Response({"detail": "Creating new profiles isn't allowed, create a user instead."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    # def create(self, request, *args, **kwargs):
+    #     return Response({"detail": "Creating new profiles isn't allowed, create a user instead."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
     def destroy(self, request, *args, **kwargs):
         return Response({"detail": "Deleting existing profiles isn't allowed, delete the user instead."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
