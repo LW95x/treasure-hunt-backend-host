@@ -14,7 +14,7 @@ class Treasure(models.Model):
     
     
 class Profile(models.Model):
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
 
     @property
