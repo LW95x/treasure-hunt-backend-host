@@ -17,6 +17,7 @@ class Profile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     treasures = models.ManyToManyField('Treasure', related_name='owners', blank=True)
     avatar = models.CharField(max_length=255, default='default_avatar.png')
+    friends = models.ManyToManyField("Profile",blank=True)
 
     @property
     def treasure_count(self) -> int:
